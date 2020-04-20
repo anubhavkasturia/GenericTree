@@ -120,5 +120,55 @@ private boolean findp(Node node,int data){
         }
         System.out.println(node.data);
     }
+    public void levelorder(){
+        levelorderp(root);
+    }
+    private void levelorderp(Node node){
+        LinkedList<Node>queue=new LinkedList<>();
+        queue.addLast(root);
+        queue.addLast(null);
 
-}
+        while(queue.size()!=0){
+            Node temp=queue.removeFirst();
+            
+            if(temp!=null){
+               System.out.print(temp.data+" ");
+               for(Node child:temp.children){
+                queue.addLast(child);
+                
+            }
+        }
+            
+            
+            else if(temp==null){
+                
+                System.out.println();
+                if(queue.size()>0){
+                    queue.addLast(null);
+
+                }
+            }
+        }
+    }
+    
+            
+        
+        
+
+    
+    public void removeLeaves(){
+        removeLeavesp(this.root);
+    }
+    private static void removeLeavesp(Node node){
+        for(int i=node.children.size()-1;i>=0;i--){
+            Node child=node.children.get(i);
+            if(child.children.size()==0){
+                node.children.remove(child);
+            }else{
+                removeLeavesp(child);
+                }
+            }
+        }
+        
+    }
+
