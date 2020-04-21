@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class genericTree{
@@ -150,12 +151,30 @@ private boolean findp(Node node,int data){
             }
         }
     }
-    
-            
-        
-        
+        public boolean isIsomorphic(genericTree other){
+            return isIsomorphicp(this.root,other.root);
+        }
+        private boolean isIsomorphicp (Node troot,Node oroot) {
+            if(troot.children.size()==oroot.children.size()){
+                for (int i=0;i<troot.children.size();i++) {
+                    Node tchild=troot.children.get(i);
+                    Node ochild=oroot.children.get(i);
 
-    
+                    boolean isChildIsomorphic=isIsomorphicp(tchild, ochild);
+                    if(isChildIsomorphic==false){ //first non matching children node, we return false
+                        return false;
+                    }
+                }
+                return true;
+            }
+            
+            else{
+                return false;
+            }
+            
+        }
+
+            
     public void removeLeaves(){
         removeLeavesp(this.root);
     }
@@ -170,5 +189,40 @@ private boolean findp(Node node,int data){
             }
         }
         
+        public void mirror(){
+            mirrorp(this.root);
+        }
+        private void mirrorp(Node node){
+            for(Node child:node.children){
+                mirrorp(child);
+            }
+            Collections.reverse(node.children);
+        }
+        public boolean isMirror(genericTree other){
+           return isMirrorp(this.root,other.root);
+        }
+        private boolean isMirrorp(Node troot,Node oroot){
+            if(troot.children.size()==oroot.children.size()){
+            for(int i=0;i<=troot.children.size()-1;i++){
+                for(int j=oroot.children.size()-1;j>=0;j--){
+                    Node tchild=troot.children.get(i);
+                    Node ochild=oroot.children.get(j);
+                    
+                    boolean isCMirror=isMirrorp(tchild, ochild);
+                    if(isCMirror==false){
+                        return false;
+                    }     
+                }
+            }
+            return true;
+        }else{
+            return false;
+        }
+              
+        }
+        
     }
+        
+    
+    
 
